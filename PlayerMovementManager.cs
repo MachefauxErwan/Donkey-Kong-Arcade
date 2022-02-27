@@ -40,7 +40,7 @@ public class PlayerMovementManager : MonoBehaviour
 
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, CollisionLayer);
+       
         verticalMovement = Input.GetAxis("Vertical") * ClimbSpeed * Time.fixedDeltaTime;
         horizontalMovement = Input.GetAxis("Horizontal") * MoveSpeed * Time.fixedDeltaTime;
 
@@ -49,14 +49,15 @@ public class PlayerMovementManager : MonoBehaviour
             isJumping = true;
         }
         Flip(rb.velocity.x);
-        MovePlayer(horizontalMovement, verticalMovement);
+        
         animator.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
         animator.SetBool("IsClimbing", isClimbing);
 
     }
     private void FixedUpdate()
     {
-        
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, CollisionLayer);
+        MovePlayer(horizontalMovement, verticalMovement);
     }
     void MovePlayer(float _horizontalMovement, float _verticalMovement)
     {
